@@ -21,7 +21,7 @@ RUN apk add --no-cache tini curl ttyd unzip ca-certificates && \
     # kubectl
     wget "https://dl.k8s.io/release/$(wget -q -O- https://dl.k8s.io/release/stable.txt)/bin/linux/${arch}/kubectl" && \
     install -o kubie -g kubie -m 0755 kubectl /usr/local/bin/kubectl && \
-    # helm
+    # helm 
     wget "https://get.helm.sh/helm-v3.10.0-linux-${arch}.tar.gz" && \
     tar -zxvf helm-v3.10.0-linux-${arch}.tar.gz && \
     install -o kubie -g kubie -m 0755 linux-${arch}/helm /usr/local/bin/helm
