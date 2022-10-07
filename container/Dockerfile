@@ -19,7 +19,6 @@ RUN apk add --no-cache tini curl ttyd unzip ca-certificates && \
     echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile && \
     echo "alias poweroff='kill 1'" >> /etc/profile && \
     # kubectl
-    # ci test
     wget "https://dl.k8s.io/release/$(wget -q -O- https://dl.k8s.io/release/stable.txt)/bin/linux/${arch}/kubectl" && \
     install -o kubie -g kubie -m 0755 kubectl /usr/local/bin/kubectl && \
     # helm
