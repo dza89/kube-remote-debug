@@ -4,10 +4,10 @@ namespaced: true
 replicaCount: 1
 
 image:
-  repository: dza123/kube-remote-debug
+  repository: ghcr.io/dza89/kube-remote-debug
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag:
 
 imagePullSecrets: []
 nameOverride: ""
