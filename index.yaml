@@ -1,3 +1,14 @@
 apiVersion: v1
-entries: {}
-generated: "2022-10-07T17:47:12.236181+02:00"
+entries:
+  kube-remote-debug:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2022-10-08T09:43:54.78542894Z"
+    description: A Helm chart for Kubernetes
+    digest: 385294ef112484a460cbd21b17e2ef3339d5e0bc91db5c3e1fc366a9fa37a5aa
+    name: kube-remote-debug
+    type: application
+    urls:
+    - https://github.com/dza89/kube-remote-debug/releases/download/kube-remote-debug-0.2.0/kube-remote-debug-0.2.0.tgz
+    version: 0.2.0
+generated: "2022-10-08T09:43:54.78543864Z"
