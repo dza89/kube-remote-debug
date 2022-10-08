@@ -1,6 +1,6 @@
 # which role to attach the service account to # TODO: custom role
 role: admin
-# set cluster wide or namespaced priviliges
+# set cluster wide or namespaced privileges
 namespaced: true 
 
 replicaCount: 1
