@@ -9,5 +9,5 @@ The namespaced flag switches between a clusterrolebinding and a rolebinding.
 ```bash
 helm repo add kube-remote-debug https://dza89.github.io/kube-remote-debug
 helm repo update
-helm upgrade kube-remote-debug --install kube-remote-debug --set namespaced=false --set role=viewer
+helm upgrade kube-remote-debug --install kube-remote-debug/kube-remote-debug --set namespaced=false --set role=viewer
 ```
