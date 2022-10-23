@@ -2,7 +2,7 @@ FROM alpine:3.16.2 as builder
 
 COPY ./detect_arch /opt/detect_arch
 
-RUN apk add --no-cache tini ttyd unzip && \
+RUN apk add --no-cache unzip && \
     adduser \
     --disabled-password \
     --gecos "" \
