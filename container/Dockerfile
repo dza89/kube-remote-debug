@@ -23,7 +23,7 @@ FROM alpine:3.16.3
 RUN apk add --no-cache tini ttyd && \
     echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile
 COPY --from=builder /etc/shadow /etc/shadow
-COPY --from=builder /usr/local/bin usr/local/bin
+COPY --from=builder /usr/local/bin /usr/local/bin
 
 ENV TINI_KILL_PROCESS_GROUP=1
 
