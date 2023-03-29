@@ -1,4 +1,4 @@
-FROM alpine:3.17.2 as builder
+FROM alpine:3.17.3 as builder
 
 COPY ./detect_arch /opt/detect_arch
 
@@ -18,7 +18,7 @@ RUN apk add --no-cache unzip && \
     tar -zxvf helm-v3.10.0-linux-${arch}.tar.gz && \
     install -o kubie -g kubie -m 0755 linux-${arch}/helm /usr/local/bin/helm
 
-FROM alpine:3.17.2
+FROM alpine:3.17.3
 
 RUN apk add --no-cache tini ttyd && \
     echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile
