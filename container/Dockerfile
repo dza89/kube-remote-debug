@@ -2,12 +2,12 @@ FROM alpine:3.17.3 as builder
 
 COPY ./detect_arch /opt/detect_arch
 
-RUN apk add --no-cache unzip && \
+RUN apk add --no-cache unzip bash && \
     adduser \
     --disabled-password \
     --gecos "" \
-    --no-create-home \
     --uid "1000" \
+    --shell bash \
     "kubie" && \
     export arch=$(/opt/detect_arch) && \
     # kubectl
@@ -16,17 +16,23 @@ RUN apk add --no-cache unzip && \
     # helm
     wget "https://get.helm.sh/helm-v3.10.0-linux-${arch}.tar.gz" && \
     tar -zxvf helm-v3.10.0-linux-${arch}.tar.gz && \
-    install -o kubie -g kubie -m 0755 linux-${arch}/helm /usr/local/bin/helm
+    install -o kubie -g kubie -m 0755 linux-${arch}/helm /usr/local/bin/helm && \
+    wget https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases -P /home/kubie && \
+    echo "[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases" >>  /home/kubie/.bashrc
+
 
 FROM alpine:3.17.3
 
-RUN apk add --no-cache tini ttyd && \
+RUN apk add --no-cache tini ttyd bash && \
     echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile
-COPY --from=builder /etc/shadow /etc/shadow
+
+COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /usr/local/bin /usr/local/bin
+COPY --from=builder /home/kubie /home/kubie
+
+USER 1000
 
 ENV TINI_KILL_PROCESS_GROUP=1
 
-USER 1000
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD [ "ttyd", "-s", "3", "-t", "titleFixed=/bin/sh", "-t", "rendererType=webgl", "-t", "disableLeaveAlert=true", "/bin/sh", "-i", "-l" ]
