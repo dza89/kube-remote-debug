@@ -23,7 +23,7 @@ RUN apk add --no-cache unzip bash && \
 
 FROM alpine:3.17.3
 
-RUN apk add --no-cache tini ttyd bash && \
+RUN apk add --no-cache tini ttyd bash fzf && \
     echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile
 
 COPY --from=builder /etc/passwd /etc/passwd
