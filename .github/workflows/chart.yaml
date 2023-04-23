@@ -2,6 +2,7 @@ name: Helm Chart Release
 
 permissions:
   packages: write
+  contents: read
   
 on:
   push:
