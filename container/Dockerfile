@@ -35,4 +35,4 @@ USER 1000
 ENV TINI_KILL_PROCESS_GROUP=1
 
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD [ "ttyd", "-s", "3", "-t", "titleFixed=/bin/sh", "-t", "rendererType=webgl", "-t", "disableLeaveAlert=true", "/bin/sh", "-i", "-l" ]
+CMD [ "ttyd", "-s", "3", "-t", "titleFixed=/bin/bash", "-t", "rendererType=webgl", "-t", "disableLeaveAlert=true", "/bin/bash", "-i", "-l" ]
