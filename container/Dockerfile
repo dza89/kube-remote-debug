@@ -17,8 +17,8 @@ RUN apk add --no-cache unzip bash && \
     wget "https://get.helm.sh/helm-v3.10.0-linux-${arch}.tar.gz" && \
     tar -zxvf helm-v3.10.0-linux-${arch}.tar.gz && \
     install -o kubie -g kubie -m 0755 linux-${arch}/helm /usr/local/bin/helm && \
-    wget https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases -P /home/kubie && \
-    echo "[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases" >>  /home/kubie/.bashrc
+    wget https://raw.githubusercontent.com/kubermatic/fubectl/master/fubectl.source -P /home/kubie && \
+    echo "[ -f ~/fubectl.source ] && source ~/fubectl.source" >> /home/kubie/.bashrc
 
 
 FROM alpine:3.17.3
