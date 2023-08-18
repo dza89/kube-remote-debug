@@ -1,4 +1,4 @@
-FROM alpine:3.18.2 as builder
+FROM alpine:3.18.3 as builder
 
 COPY ./detect_arch /opt/detect_arch
 
@@ -21,7 +21,7 @@ RUN apk add --no-cache unzip bash && \
     echo "[ -f ~/fubectl.source ] && source ~/fubectl.source" >> /home/kubie/.bashrc &&
     chown -R 1000:1000 /home/kubie
 
-FROM alpine:3.18.2
+FROM alpine:3.18.3
 
 RUN apk add --no-cache tini ttyd bash fzf && \
     echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile
