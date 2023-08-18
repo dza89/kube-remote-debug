@@ -19,7 +19,7 @@ RUN apk add --no-cache unzip bash && \
     install -o kubie -g kubie -m 0755 linux-${arch}/helm /usr/local/bin/helm && \
     wget https://raw.githubusercontent.com/kubermatic/fubectl/master/fubectl.source -P /home/kubie && \
     echo "[ -f ~/fubectl.source ] && source ~/fubectl.source" >> /home/kubie/.bashrc &&
-    chmod -R 1000:1000 /home/kubie
+    chown -R 1000:1000 /home/kubie
 
 FROM alpine:3.18.2
 
