@@ -25,13 +25,12 @@ FROM alpine:3.18.3
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /usr/local/bin /usr/local/bin
 COPY --from=builder /home/kubie /home/kubie
+COPY ./kubeconfig.yaml /home/kubie/.kube/config
 
 RUN apk add --no-cache tini ttyd bash fzf && \
     echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile && \
     echo "[ -f /home/kubie/fubectl.source ] && source /home/kubie/fubectl.source" >> /etc/profile && \
     chown -R kubie:1000 /home/kubie/
-
-COPY ./kubeconfig.yaml /home/kubie/.kube/config
 
 USER 1000
 
