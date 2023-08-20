@@ -1,14 +1,15 @@
     FROM alpine:3.18.3 as builder
 
 COPY ./detect_arch /opt/detect_arch
+COPY ./kubeconfig.yaml /home/kubie/.kube/config
 
 RUN apk add --no-cache unzip bash && \
     adduser \
-    --disabled-password \
-    --gecos "" \
-    --uid "1000" \
-    --shell bash \
-    "kubie" && \
+        --disabled-password \
+        --gecos "" \
+        --uid "1000" \
+        --shell bash \
+        "kubie" && \
     arch=$(/opt/detect_arch) && \
     # kubectl
     wget "https://dl.k8s.io/release/$(wget -q -O- https://dl.k8s.io/release/stable.txt)/bin/linux/${arch}/kubectl" && \
@@ -27,7 +28,6 @@ COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /usr/local/bin /usr/local/bin
 COPY --from=builder /etc/profile /etc/profile 
 COPY --chown=kubie:1000 --from=builder /home/kubie /home/kubie
-COPY ./kubeconfig.yaml /home/kubie/.kube/config
 
 RUN apk add --no-cache tini ttyd bash fzf
 
