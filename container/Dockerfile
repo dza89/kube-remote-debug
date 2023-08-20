@@ -1,4 +1,4 @@
-FROM alpine:3.18.3 as builder
+    FROM alpine:3.18.3 as builder
 
 COPY ./detect_arch /opt/detect_arch
 
@@ -28,7 +28,7 @@ COPY --from=builder /home/kubie /home/kubie
 
 RUN apk add --no-cache tini ttyd bash fzf && \
     echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile && \
-    chown -R kubie:kubie /home/kubie/
+    chown -R kubie:1000 /home/kubie/
 
 USER 1000
 
