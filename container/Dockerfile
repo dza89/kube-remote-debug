@@ -17,20 +17,19 @@ RUN apk add --no-cache unzip bash && \
     wget "https://get.helm.sh/helm-v3.12.3-linux-${arch}.tar.gz" && \
     tar -zxvf helm-v3.12.3-linux-${arch}.tar.gz && \
     install -o kubie -g kubie -m 0755 linux-${arch}/helm /usr/local/bin/helm && \
-    wget https://raw.githubusercontent.com/kubermatic/fubectl/master/fubectl.source -P /home/kubie
+    wget https://raw.githubusercontent.com/kubermatic/fubectl/master/fubectl.source -P /home/kubie && \
+    echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile && \
+    echo "[ -f /home/kubie/fubectl.source ] && source /home/kubie/fubectl.source" >> /etc/profile 
     
-
 FROM alpine:3.18.3
 
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /usr/local/bin /usr/local/bin
-COPY --from=builder /home/kubie /home/kubie
+COPY --from=builder /etc/profile /etc/profile 
+COPY --chown=kubie:1000 --from=builder /home/kubie /home/kubie
 COPY ./kubeconfig.yaml /home/kubie/.kube/config
 
-RUN apk add --no-cache tini ttyd bash fzf && \
-    echo "export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/profile && \
-    echo "[ -f /home/kubie/fubectl.source ] && source /home/kubie/fubectl.source" >> /etc/profile && \
-    chown -R kubie:1000 /home/kubie/
+RUN apk add --no-cache tini ttyd bash fzf
 
 USER 1000
 
