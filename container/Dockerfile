@@ -1,4 +1,4 @@
-    FROM alpine:3.21.2 as builder
+FROM alpine:3.21.2 as builder
 
 COPY ./detect_arch /opt/detect_arch
 COPY ./kubeconfig.yaml /home/kubie/.kube/config
