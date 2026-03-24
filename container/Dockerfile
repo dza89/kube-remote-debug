@@ -1,9 +1,8 @@
-ARG HELM_VERSION=v4.1.3
-
 FROM alpine:3.23.3 as builder
 
+ARG HELM_VERSION=v4.1.3
+
 COPY ./detect_arch /opt/detect_arch
-COPY ./kubeconfig.yaml /home/kubie/.kube/config
 
 RUN apk add unzip && \
     adduser \
@@ -33,6 +32,7 @@ COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /usr/local/bin /usr/local/bin
 COPY --from=builder /etc/profile /etc/profile 
 COPY --chown=kubie:1000 --from=builder /home/kubie /home/kubie
+COPY ./kubeconfig.yaml /home/kubie/.kube/config
 
 RUN apk add --no-cache tini ttyd bash fzf
 
