@@ -1,3 +1,5 @@
+ARG HELM_VERSION=v4.1.3
+
 FROM alpine:3.23.3 as builder
 
 COPY ./detect_arch /opt/detect_arch
@@ -16,8 +18,8 @@ RUN arch=$(/opt/detect_arch) && \
     wget "https://dl.k8s.io/release/$(wget -q -O- https://dl.k8s.io/release/stable.txt)/bin/linux/${arch}/kubectl" && \
     install -o kubie -g kubie -m 0755 kubectl /usr/local/bin/kubectl && \
     # helm
-    wget "https://get.helm.sh/helm-v3.12.3-linux-${arch}.tar.gz" && \
-    tar -zxvf helm-v3.12.3-linux-${arch}.tar.gz && \
+    wget "https://get.helm.sh/helm-${HELM_VERSION}-linux-${arch}.tar.gz" && \
+    tar -zxvf helm-${HELM_VERSION}-linux-${arch}.tar.gz && \
     install -o kubie -g kubie -m 0755 linux-${arch}/helm /usr/local/bin/helm
 
 RUN wget https://raw.githubusercontent.com/kubermatic/fubectl/master/fubectl.source -P /home/kubie && \
