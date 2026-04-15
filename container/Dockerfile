@@ -1,4 +1,4 @@
-FROM alpine:3.23.3 as builder
+FROM alpine:3.23.4 as builder
 
 ARG HELM_VERSION=v4.1.3
 
@@ -26,7 +26,7 @@ RUN wget https://raw.githubusercontent.com/kubermatic/fubectl/master/fubectl.sou
     echo "[ -f /home/kubie/fubectl.source ] && source /home/kubie/fubectl.source" >> /etc/profile && \
     echo "cd /home/kubie" >> /etc/profile
     
-FROM alpine:3.23.3
+FROM alpine:3.23.4
 
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /usr/local/bin /usr/local/bin
